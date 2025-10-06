@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>2 Meses ♥ — Página con cartas y canciones</title>
+  <style>
+    :root{--bg:#0f1724;--card:#fff;--accent:#ff6b6b;--muted:#9aa4b2}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,'Helvetica Neue',Arial;background:linear-gradient(180deg,#071227 0%, #0f1724 100%);color:#e6eef6;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:28px}
+    header{max-width:900px;text-align:center;margin-bottom:18px}
+    h1{font-size:2rem;margin:8px 0;color:var(--card);letter-spacing:0.5px}
+    p.lead{color:var(--muted);margin:0 0 14px}
+
+    .stage{width:100%;max-width:1000px;display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start}
+
+    /* cartas */
+    .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .card {perspective:1200px;height:180px}
+    .card-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.9,.3,1);cursor:pointer;border-radius:14px}
+    .card.flipped .card-inner{transform:rotateY(180deg)}
+    .card-face{position:absolute;inset:0;border-radius:14px;display:flex;align-items:center;justify-content:center;padding:18px;backface-visibility:hidden;box-shadow:0 6px 18px rgba(2,6,23,.6)}
+    .card-front{background:linear-gradient(135deg,#1f3a6b,#12305a);}
+    .card-front .title{font-weight:700;color:#fff}
+    .card-back{background:linear-gradient(135deg,#fff,#f2f6fb);color:#0b2033;transform:rotateY(180deg);padding:18px;text-align:left}
+
+    .small{font-size:.88rem;color:rgba(255,255,255,.9)}
+    .back-message{white-space:pre-wrap;font-size:0.95rem;line-height:1.35}
+
+    /* lado derecho - canciones y controles */
+    .side{background:linear-gradient(180deg,rgba(255,255,255,0.03), rgba(255,255,255,0.01));padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,.6)}
+    .songs{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+    .song{background:rgba(255,255,255,0.03);padding:10px;border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer}
+    .song:hover{transform:translateY(-4px);transition:transform .18s}
+    .song .meta{display:flex;gap:10px;align-items:center}
+    .dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}
+
+    .footer{margin-top:18px;color:var(--muted);font-size:.9rem}
+
+    /* modal grande cuando se abre la carta */
+    .overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);z-index:80}
+    .overlay.show{display:flex}
+    .letter{max-width:720px;background:linear-gradient(180deg,#fff,#fbfdff);color:#052033;padding:28px;border-radius:14px;box-shadow:0 12px 40px rgba(2,6,23,.6)}
+    .letter h2{margin:0 0 8px}
+    .close{background:none;border:2px solid transparent;border-radius:8px;padding:6px 10px;cursor:pointer}
+
+    /* confetti simple */
+    .confetti-piece{position:fixed;z-index:1000;pointer-events:none;width:10px;height:14px;opacity:0.95}
+
+    @media (max-width:880px){.stage{grid-template-columns:1fr;}.cards{grid-template-columns:1fr}.side{order:2}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>2 meses juntos ❤️</h1>
+    <p class="lead">Dos meses de risas, confidencias, y pequeñas aventuras. Guarda esta página como recuerdo — toca cualquier carta para leer lo que hay dentro.</p>
+  </header>
+
+  <main class="stage">
+    <section>
+      <div class="cards">
+        <div class="card" data-id="1" aria-label="Carta 1">
+          <div class="card-inner">
+            <div class="card-face card-front">
+              <div class="title">Para mi persona favorita</div>
+            </div>
+            <div class="card-face card-back">
+              <div>
+                <div class="back-message">Mi amor,
+
+Hace dos meses que estamos construyendo algo que me hace sonreír cada día. Gracias por tu paciencia, por tus abrazos y por aceptar mis locuras.
+
+Te prometo más canciones compartidas, café a medias y noches sin prisa.
+
+Con todo mi cariño,
+(Tu nombre)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" data-id="2" aria-label="Carta 2">
+          <div class="card-inner">
+            <div class="card-face card-front">
+              <div class="title">Un recuerdo</div>
+            </div>
+            <div class="card-face card-back">
+              <div class="back-message">Recuerdo la primera vez que nos perdimos caminando y terminamos riendo sin rumbo. Esos momentos viajeros me recuerdan que contigo todo es mejor.
+
+Gracias por ser mi compañera/o de mapas y errores bonitos.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" data-id="3" aria-label="Carta 3">
+          <div class="card-inner">
+            <div class="card-face card-front">
+              <div class="title">Pequeña promesa</div>
+            </div>
+            <div class="card-face card-back">
+              <div class="back-message">Prometo escuchar tus historias aunque ya me las sepa, cocinar aun cuando se me queme algo y aprender esa serie que tanto te gusta.
+
+Más promesas: abrazos gratis e infinitos planes por hacer.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" data-id="4" aria-label="Carta 4">
+          <div class="card-inner">
+            <div class="card-face card-front">
+              <div class="title">Para celebrar</div>
+            </div>
+            <div class="card-face card-back">
+              <div class="back-message">Dos meses son un comienzo; celebremos cada pequeño triunfo, cada broma interna y cada mañana juntos.
+
+¿Lista/o para muchos meses más?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="side">
+      <div style="display:flex;align-items:center;gap:12px;justify-content:space-between">
+        <div>
+          <strong>Lista especial</strong>
+          <div class="small">Canciones para nosotros — toca para abrir en Spotify</div>
+        </div>
+        <button id="celebrateBtn" class="close">🎉 Celebrar</button>
+      </div>
+
+      <div class="songs" id="songs">
+        <!-- Reemplaza las URLs de spotify por las tuyas favoritas -->
+        <div class="song" data-url="https://open.spotify.com/" role="button">
+          <div class="meta"><div class="dot"></div><div>
+            <div style="font-weight:600">Nuestra canción</div>
+            <div class="small">(Reemplaza con enlace a Spotify)</div>
+          </div></div>
+          <div>▶</div>
+        </div>
+
+        <div class="song" data-url="https://open.spotify.com/" role="button">
+          <div class="meta"><div class="dot"></div><div>
+            <div style="font-weight:600">Bailando contigo</div>
+            <div class="small">(Enlace a Spotify)</div>
+          </div></div>
+          <div>▶</div>
+        </div>
+
+        <div class="song" data-url="https://open.spotify.com/" role="button">
+          <div class="meta"><div class="dot"></div><div>
+            <div style="font-weight:600">Canción de despedida (suave)</div>
+            <div class="small">(Enlace a Spotify)</div>
+          </div></div>
+          <div>▶</div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;color:var(--muted);font-size:.9rem">Consejo: haz clic derecho → "Guardar como" para guardar esta página y compartirla.</div>
+    </aside>
+  </main>
+
+  <div class="footer">✨ Feliz 2 meses — que esto sea solo el inicio.</div>
+
+  <!-- Modal carta grande -->
+  <div id="overlay" class="overlay" role="dialog" aria-hidden="true">
+    <div class="letter" id="letter">
+      <h2 id="letter-title">Carta</h2>
+      <p id="letter-text">Texto de la carta...</p>
+      <div style="text-align:right;margin-top:12px"><button id="closeBtn" class="close">Cerrar</button></div>
+    </div>
+  </div>
+
+  <script>
+    // Interactividad: cartas que giran y muestran modal
+    const cards = document.querySelectorAll('.card');
+    const overlay = document.getElementById('overlay');
+    const letterTitle = document.getElementById('letter-title');
+    const letterText = document.getElementById('letter-text');
+    const closeBtn = document.getElementById('closeBtn');
+    const celebrateBtn = document.getElementById('celebrateBtn');
+
+    cards.forEach(card => {
+      card.addEventListener('click', ()=>{
+        // efecto flip
+        card.classList.toggle('flipped');
+        // también abrimos modal con versión grande del mensaje
+        const id = card.dataset.id;
+        const back = card.querySelector('.card-back .back-message').innerText;
+        letterTitle.innerText = card.querySelector('.card-front .title').innerText;
+        letterText.innerText = back;
+        overlay.classList.add('show');
+        overlay.setAttribute('aria-hidden', 'false');
+      })
+    })
+
+    closeBtn.addEventListener('click', ()=>{
+      overlay.classList.remove('show');
+      overlay.setAttribute('aria-hidden', 'true');
+      // quitar flip de todas las cartas para que puedan reabrirse con efecto
+      document.querySelectorAll('.card.flipped').forEach(c=> c.classList.remove('flipped'));
+    })
+    overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeBtn.click(); })
+
+    // canciones -> abrir enlace de Spotify en nueva pestaña
+    document.querySelectorAll('.song').forEach(s => {
+      s.addEventListener('click', ()=>{
+        const url = s.dataset.url || 'https://open.spotify.com/';
+        window.open(url, '_blank');
+      })
+    })
+
+    // confetti sencillo
+    function spawnConfetti(){
+      const colors = ['#ff6b6b','#ffd166','#06d6a0','#4d96ff','#c084fc'];
+      for(let i=0;i<50;i++){
+        const el = document.createElement('div');
+        el.className='confetti-piece';
+        el.style.left = Math.random()*100 + '%';
+        el.style.top = '-10%';
+        el.style.background = colors[Math.floor(Math.random()*colors.length)];
+        el.style.transform = 'rotate('+ (Math.random()*360) +'deg)';
+        el.style.width = (6 + Math.random()*12) + 'px';
+        el.style.height = (8 + Math.random()*16) + 'px';
+        document.body.appendChild(el);
+        // anim
+        const endX = (Math.random()*80 - 40);
+        const duration = 2000 + Math.random()*2000;
+        el.animate([
+          {transform: 'translate(0,0) rotate(0deg)', opacity:1},
+          {transform: `translate(${endX}px, ${window.innerHeight + 100}px) rotate(${Math.random()*720}deg)`, opacity:0}
+        ],{duration:duration, easing:'cubic-bezier(.2,.8,.2,1)'}).onfinish = ()=> el.remove();
+      }
+    }
+
+    celebrateBtn.addEventListener('click', ()=>{
+      spawnConfetti();
+    });
+
+    // accesibilidad: permitir cerrar modal con Escape
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeBtn.click(); });
+
+    // Sugerencia: el usuario puede personalizar los enlaces de las canciones en el HTML, reemplazando el atributo data-url con enlaces directos a Spotify.
+  </script>
+</body>
+</html>
